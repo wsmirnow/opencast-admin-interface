@@ -231,7 +231,7 @@ const TableFilters = ({
 // @ts-expect-error TS(7006): Parameter 'filter' implicitly has an 'any' type.
 	const renderBlueBox = (filter) => {
 // @ts-expect-error TS(7006): Parameter 'opt' implicitly has an 'any' type.
-		let valueLabel = filter.options.find((opt) => opt.value === filter.value)
+		let valueLabel = filter.options?.find((opt) => opt.value === filter.value)
 			?.label || filter.value;
 		return (
 			<span>
@@ -337,9 +337,7 @@ const TableFilters = ({
 										<span>
 											{
 												// Use different representation of name and value depending on type of filter
-												filter.type === "select" ? (
-													renderBlueBox(filter)
-												) : filter.type === "period" ? (
+												filter.type === "period" ? (
 													<span>
 														<span>
 															{t(filter.label).substr(0, 40)}:
@@ -352,7 +350,9 @@ const TableFilters = ({
 															})}
 														</span>
 													</span>
-												) : null
+												) : (
+													renderBlueBox(filter)
+												)
 											}
 										</span>
 										{/* Remove icon in blue area around filter */}
